@@ -41,13 +41,19 @@ func main() {
 			}
 		}
 	}
-	var updateDomain string
 
-	if (strings.ToUpper(service)) == "GOOGLEDOMAIN" {
+	var updateDomain string
+	if strings.ToUpper(service) == "GOOGLEDOMAIN" {
 		updateDomain = fmt.Sprintf("https://%s:%s@domains.google.com/nic/update?hostname=%s&myip=%s", username, password, []byte(strings.TrimSpace(string(hostname))), []byte(strings.TrimSpace(string(ipAddress))))
 		fmt.Println(updateDomain)
 	} else if strings.ToUpper(service) == "CLOUDFLARE" {
-		updateDomain = fmt.Sprintf("https://%s:%s@domains.google.com/nic/update?hostname=%s&myip=%s", username, password, []byte(strings.TrimSpace(string(hostname))), []byte(strings.TrimSpace(string(ipAddress))))
+		/*
+			To Do: Read doc of API from Cloudflare to update a DNS Record
+					https://developers.cloudflare.com/api/#dns-records-for-a-zone-list-dns-records
+
+					· Need API Token
+					· ¿One API Token for dns record? ¿Add api token in .env?
+		*/
 		fmt.Println(updateDomain)
 	} else {
 		fmt.Printf("[PROBLEM] at .env SERVICE: %s\n\n", service)
@@ -58,7 +64,6 @@ func main() {
 	if errDomain != nil {
 		log.Fatal("[PROBLEM] at update domain")
 	}
-
 }
 
 // Get random web to check the public ip address from server
